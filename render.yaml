@@ -1,3 +1,4 @@
+@"
 services:
     - type: web
     name: sovet-direktorov-api
@@ -24,4 +25,4 @@ services:
 databases:
     - name: sovet-db
     plan: free
-    
+"@ | Set-Content -Path render.yaml -Encoding utf8
