@@ -1,6 +1,8 @@
-fastapi
-uvicorn
-sqlalchemy
-pydantic
-python-multipart
-psycopg2-binary
+bcrypt==4.2.1
+ecdsa==0.19.2
+passlib==1.7.4
+pyasn1==0.4.8
+python-jose==3.4.0
+python-multipart==0.0.8
+rsa==4.9.1
+six==1.17.0
