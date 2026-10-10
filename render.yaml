@@ -26,7 +26,7 @@ services:
         destination: /index.html
         envVars:
             - key: REACT_APP_API_URL
-        value: https://sovet-direktorov-api.onrender.com
+        value: https://sovet-direktorov-api-au99.onrender.com
 databases:
     - name: sovet-db
         plan: free
