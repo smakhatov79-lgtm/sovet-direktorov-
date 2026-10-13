@@ -2,36 +2,41 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Director
-from pydantic import BaseModel
-from typing import Optional
+from app.schemas import DirectorCreate, DirectorOut
+from typing import List
 
 router = APIRouter(prefix="/directors", tags=["directors"])
 
-class DirectorCreate(BaseModel):
-    fio: Optional[str] = None
-    name: Optional[str] = None
-    full_name: Optional[str] = None
-    position: Optional[str] = None
-    role: Optional[str] = None
-    company: Optional[str] = None
-    bio: Optional[str] = None
-    class Config:
-        extra = "allow"
-
-@router.get("/")
+@router.get("/", response_model=List[DirectorOut])
 def list_directors(db: Session = Depends(get_db)):
     return db.query(Director).all()
 
-@router.post("/")
+@router.post("/", response_model=DirectorOut)
 def create_director(data: DirectorCreate, db: Session = Depends(get_db)):
-    final_fio = data.fio or data.name or data.full_name or "Без имени"
-    d = Director(fio=final_fio, position=data.position or data.role, company=data.company, bio=data.bio)
-    db.add(d); db.commit(); db.refresh(d)
+    # проверка ИИН на уникальность
+    exists = db.query(Director).filter(Director.iin == data.iin).first()
+    if exists:
+        raise HTTPException(status_code=400, detail="ИИН уже существует")
+
+    d = Director(
+        last_name=data.last_name,
+        first_name=data.first_name,
+        middle_name=data.middle_name,
+        iin=data.iin,
+        birth_date=data.birth_date,
+        position=data.position,
+        status=data.status
+    )
+    db.add(d)
+    db.commit()
+    db.refresh(d)
     return d
 
 @router.delete("/{director_id}")
 def delete_director(director_id: int, db: Session = Depends(get_db)):
     obj = db.query(Director).filter(Director.id == director_id).first()
-    if obj:
-        db.delete(obj); db.commit()
+    if not obj:
+        raise HTTPException(status_code=404, detail="Not found")
+    db.delete(obj)
+    db.commit()
     return {"status": "deleted"}
