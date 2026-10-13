@@ -6,7 +6,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("https://sovet-direktorov-api-au99.onrender.com")
+    axios.get("https://sovet-direktorov-api-au99.onrender.com/directors/")
       .then(res => {
         setDirectors(res.data);
         setLoading(false);
