@@ -8,11 +8,11 @@ function App() {
   useEffect(() => {
     axios.get("https://sovet-direktorov-api-au99.onrender.com/directors/")
       .then(res => {
+        console.log(res.data);
         setDirectors(res.data);
-        setLoading(false);
       })
-      .catch(() => setLoading(false));
-  }, []);
+      .catch(err => console.error(err));
+}, []);
 
   return (
     <div style={{padding: 30, fontFamily: 'Arial', background: '#f5f5f5', minHeight: '100vh'}}>
