@@ -11,7 +11,7 @@ function App() {
         console.log(res.data);
         setDirectors(res.data);
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
       .finally(() => setLoading(false));
 }, []);
 
@@ -20,7 +20,7 @@ function App() {
       <h1 style={{color: '#1a1a1a'}}>Совет Директоров - Портал</h1>
       <div style={{background: 'white', padding: 20, borderRadius: 10, marginTop: 20}}>
         <h2>Директора ({directors.length})</h2>
-        {loading ? <p>Загрузка...</p> : 
+        {
           directors.length === 0 ? <p>Нет директоров. Создай через /docs</p> :
           directors.map(d => (
             <div key={d.id} style={{padding: '10px 0', borderBottom: '1px solid #eee'}}>
