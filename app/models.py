@@ -9,7 +9,7 @@ class User(Base):
     role = Column(String(20), default="admin") # admin, secretary, director, viewer
     full_name = Column(String(100), nullable=True)
     is_active = Column(Boolean, default=True)
-    class Director(Base):
+class Director(Base):
     __tablename__ = "directors"
     id = Column(Integer, primary_key=True, index=True)
     fio = Column(String(200), nullable=False)

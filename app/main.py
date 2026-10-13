@@ -9,6 +9,7 @@ if db_url.startswith("postgres://"):
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
+import app.models
 from app.routers import directors, auth, meetings, users
 
 # 3. Создаем таблицы
