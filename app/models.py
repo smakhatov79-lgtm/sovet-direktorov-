@@ -10,6 +10,8 @@ class User(Base):
     full_name = Column(String(100), nullable=True)
     is_active = Column(Boolean, default=True)
 class Director(Base):
+    __tablename__ = "directors"
+    
     id = Column(Integer, primary_key=True)
     last_name = Column(String) # Фамилия
     first_name = Column(String) # Имя
