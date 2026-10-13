@@ -10,9 +10,11 @@ class User(Base):
     full_name = Column(String(100), nullable=True)
     is_active = Column(Boolean, default=True)
 class Director(Base):
-    __tablename__ = "directors"
-    id = Column(Integer, primary_key=True, index=True)
-    fio = Column(String(200), nullable=False)
-    position = Column(String(200), nullable=True)
-    company = Column(String(200), nullable=True)
-    bio = Column(String(500), nullable=True)
+    id = Column(Integer, primary_key=True)
+    last_name = Column(String) # Фамилия
+    first_name = Column(String) # Имя
+    middle_name = Column(String) # Отчество
+    iin = Column(String, unique=True) # ИИН 12 цифр
+    birth_date = Column(Date)
+    position = Column(String) # Должность, сами заполняем
+    status = Column(String) # Статус из списка

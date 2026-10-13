@@ -1,4 +1,7 @@
 from fastapi import APIRouter
-router = APIRouter()
-@router.get("/test")
-def test(): return {"users": "ok"}
+
+router = APIRouter(prefix="/users", tags=["users"])
+
+@router.get("/")
+def get_users():
+    return [{"id": 1, "username": "admin", "role": "admin"}]
